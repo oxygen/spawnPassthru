@@ -1,3 +1,6 @@
+const ChildProcess = require("child_process");
+
+
 /**
  * @param {string} strExecutablePath 
  * @param {string[]} arrParams 
