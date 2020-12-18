@@ -1,6 +1,15 @@
 # spawnPassthru
 nodejs ChildProcess.spawn with stdio:inherit.
 
+Installation
+============
+
+`npm i spawnpassthru`
+
+or as a development-only dependency: 
+
+`npm i spawnpassthru --save-dev`
+
 Usage
 =====
 
