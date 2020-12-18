@@ -9,7 +9,7 @@
  */
 async function spawnPassthru(strExecutablePath, arrParams = [], objOptions = {}, nTimeoutToSuccessSeconds = 0, strStdIn = "", nSendStdInAfterSeconds = 5)
 {
-	console.log(chalk.whiteBright(`${strExecutablePath} ${arrParams.join(" ")}`));
+	console.log(`[spawnpassthru] ${strExecutablePath} ${arrParams.join(" ")}`);
 	
 	const childProcess = ChildProcess.spawn(strExecutablePath, arrParams, Object.assign({stdio: "inherit"}, objOptions));
 	//childProcess.stdout.pipe(process.stdout);

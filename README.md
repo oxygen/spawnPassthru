@@ -10,6 +10,8 @@ All params are optional except for the exe path.
 
 ```JavaScript
 
+const spawnPassthru = require("spawnpassthru");
+
 const childProcess = await spawnPassthru(
 	/*exe path*/ "/path/to/exe/chrome", 
 	
