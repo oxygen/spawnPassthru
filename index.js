@@ -12,7 +12,10 @@ const ChildProcess = require("child_process");
  */
 async function spawnPassthru(strExecutablePath, arrParams = [], objOptions = {}, nTimeoutToSuccessSeconds = 0, strStdIn = "", nSendStdInAfterSeconds = 5)
 {
-	console.log(`[spawnpassthru] ${strExecutablePath} ${arrParams.join(" ")}`);
+	if(process.stdout.isTTY)
+	{
+		console.log(`[spawnpassthru] ${strExecutablePath} ${arrParams.join(" ")}`);
+	}
 	
 	const childProcess = ChildProcess.spawn(strExecutablePath, arrParams, Object.assign({stdio: "inherit"}, objOptions));
 	//childProcess.stdout.pipe(process.stdout);
@@ -24,11 +27,19 @@ async function spawnPassthru(strExecutablePath, arrParams = [], objOptions = {},
 			nTimeoutID = setTimeout(() => { 
 				try 
 				{
+					if(process.stdout.isTTY)
+					{
+						console.log(`[spawnpassthru] Success timeout reached, killing this: ${strExecutablePath} ${arrParams.join(" ")}`);
+					}
+
 					childProcess.kill("SIGINT"); 
 				}
 				catch(error) 
 				{
-					console.error(error);
+					if(process.stdout.isTTY)
+					{
+						console.error(error);
+					}
 				}
 				finally
 				{
@@ -51,6 +62,7 @@ async function spawnPassthru(strExecutablePath, arrParams = [], objOptions = {},
 						catch(error)
 						{
 							console.error(error);
+							console.error(`[spawnpassthru] Failed writing to stdin for: ${strExecutablePath} ${arrParams.join(" ")}`);
 						}
 					}
 				},

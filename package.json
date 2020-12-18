@@ -1,6 +1,6 @@
 {
   "name": "spawnpassthru",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "ChildProcess.spawn with stdio:inherit.",
   "main": "index.js",
   "scripts": {
