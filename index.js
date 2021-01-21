@@ -45,7 +45,7 @@ async function spawnPassthru(strExecutablePath, arrParams = [], objOptions = {},
 				{
 					fnResolve(childProcess); 
 				}
-			}, nTimeoutToSuccessSeconds * 1000);
+			}, Math.max(Math.min(nTimeoutToSuccessSeconds, Math.pow(2, 32) - 1), 0) * 1000);
 		}
 		
 		let nTimeoutIDStdInWrite = null;
