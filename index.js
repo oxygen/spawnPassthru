@@ -3,14 +3,16 @@ const ChildProcess = require("child_process");
 
 /**
  * @param {string} strExecutablePath 
- * @param {string[]} arrParams 
- * @param {object} objOptions 
- * @param {number} nTimeoutToSuccessSeconds 
- * @param {string} strStdIn 
+ * @param {string[]} arrParams = []
+ * @param {object} objOptions = {}
+ * @param {number} nTimeoutToSuccessSeconds = 0
+ * @param {string} strStdIn = ""
+ * @param {number} nSendStdInAfterSeconds = 5
+ * @param {boolean} bDontWaitForProcessExitToReturn = true
  * 
- * @returns {ChildProcess}
+ * @returns {Promise<ChildProcess>}
  */
-async function spawnPassthru(strExecutablePath, arrParams = [], objOptions = {}, nTimeoutToSuccessSeconds = 0, strStdIn = "", nSendStdInAfterSeconds = 5)
+async function spawnPassthru(strExecutablePath, arrParams = [], objOptions = {}, nTimeoutToSuccessSeconds = 0, strStdIn = "", nSendStdInAfterSeconds = 5, bDontWaitForProcessExitToReturn = false)
 {
 	if(process.stdout.isTTY)
 	{
@@ -96,7 +98,7 @@ async function spawnPassthru(strExecutablePath, arrParams = [], objOptions = {},
 		childProcess.on("exit", (nCode) => {
 			if(nCode === 0)
 			{
-				fnResolve();
+				fnResolve(childProcess);
 			}
 			else
 			{
@@ -114,7 +116,10 @@ async function spawnPassthru(strExecutablePath, arrParams = [], objOptions = {},
 			}
 		});
 
-		fnResolve(childProcess);
+		if(bDontWaitForProcessExitToReturn)
+		{
+			fnResolve(childProcess);
+		}
 	});
 }
 
