@@ -21,7 +21,11 @@ All params are optional except for the exe path.
 
 const spawnPassthru = require("spawnpassthru");
 
-const childProcess = await spawnPassthru(
+
+const childProcess = await spawnPassthru("telnet towel.blinkenlights.nl");
+
+
+const childProcess2 = await spawnPassthru(
 	/*exe path*/ "/path/to/exe/chrome", 
 	
 	/*params*/ [
